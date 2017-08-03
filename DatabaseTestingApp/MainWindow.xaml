@@ -1,0 +1,14 @@
+﻿<Window x:Class="DatabaseTestingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DatabaseTestingApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <DataGrid x:Name="PlayerListBox"  SelectionMode="Single" SelectionUnit="Cell" Margin="10,10,0,0" VerticalAlignment="Top" Height="135" HorizontalAlignment="Left" Width="211" />
+        <Label x:Name="UsernameLabel" Content="N/A" HorizontalAlignment="Left" Margin="64,174,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="DatabaseButton" Content="Add to Database" HorizontalAlignment="Left" Margin="64,205,0,0" VerticalAlignment="Top" Width="75" Click="DatabaseButton_Click"/>
+    </Grid>
+</Window>
