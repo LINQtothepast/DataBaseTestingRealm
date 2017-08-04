@@ -7,8 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <DataGrid x:Name="PlayerListBox"  SelectionMode="Single" SelectionUnit="Cell" Margin="10,10,0,0" VerticalAlignment="Top" Height="135" HorizontalAlignment="Left" Width="211" />
-        <Label x:Name="UsernameLabel" Content="N/A" HorizontalAlignment="Left" Margin="64,174,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="DatabaseButton" Content="Add to Database" HorizontalAlignment="Left" Margin="64,205,0,0" VerticalAlignment="Top" Width="75" Click="DatabaseButton_Click"/>
+        <DataGrid x:Name="PlayerListBox"  SelectionMode="Single" SelectionUnit="Cell" Margin="10,10,0,0" VerticalAlignment="Top" Height="279" HorizontalAlignment="Left" Width="271" />
+        <Label x:Name="Username" Content="N/A" HorizontalAlignment="Left" Margin="389,8,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="ArmedButton" Content="Set Armed to 1" HorizontalAlignment="Left" Margin="315,229,0,0" VerticalAlignment="Top" Width="157" Click="ArmedClick"/>
+        <Button x:Name="BardButton" Content="Bard Role Goes" HorizontalAlignment="Left" Margin="315,253,0,0" VerticalAlignment="Top" Width="157" Click="BardClick"/>
+        <Label x:Name="Role" Content="N/A" HorizontalAlignment="Left" Margin="389,39,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="Armed" Content="N/A" HorizontalAlignment="Left" Margin="389,70,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="ArmedLabel" Content="Armed:" HorizontalAlignment="Left" Margin="315,70,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="RoleLabel" Content="Role:" HorizontalAlignment="Left" Margin="315,39,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="UsernameLabel" Content="Username:" HorizontalAlignment="Left" Margin="315,8,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="BlockedLabel" Content="Blocked" HorizontalAlignment="Left" Margin="315,101,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Blocked" Content="N/A" HorizontalAlignment="Left" Margin="389,101,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="VisitedByLabel" Content="Visited By:" HorizontalAlignment="Left" Margin="315,132,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="VisitedBy" Content="N/A" HorizontalAlignment="Left" Margin="389,132,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="ResetButton" Content="Reset Values" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Width="83" Click="ResetClick"/>
+        <Button x:Name="UserValues" Content="Passed User Values" HorizontalAlignment="Left" Margin="315,277,0,0" VerticalAlignment="Top" Width="157" Click="UserValuesClick"/>
     </Grid>
 </Window>

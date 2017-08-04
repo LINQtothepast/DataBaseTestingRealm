@@ -20,7 +20,7 @@ namespace DatabaseTestingApp
 
         public static User returnAUser(string passedName)
         {
-            User temp = new User("temp", "temp", 0);
+            User temp = new User("temp", "temp", 0, 0, false, false, "");
             foreach (User element in UserList)
             {
                 if (element.UserName == passedName)
@@ -54,10 +54,50 @@ namespace DatabaseTestingApp
                             string tempEmail = dataRead["Email"].ToString();
                             string tempName = dataRead["Name"].ToString();
                             int tempID = Convert.ToInt32(dataRead["ID"]);
-                            UserList.Add(new User(tempEmail, tempName, tempID));
+                            UserList.Add(new User(tempEmail, tempName, tempID, 0, false, false, ""));
                         }
                     }
                 }
+                connect.Close();
+            }
+        }
+
+        public static void ResetStatusTable()
+        {
+            //connect to database
+            string connetionString = ("user id=Derek;" +
+                                "server=localhost;" +
+                                "Trusted_Connection=yes;" +
+                                "database=Test");
+
+            using (connect = new SqlConnection(connetionString))
+            {
+                connect.Open();
+
+                for(int i = 1; i < 16; i++)
+                {
+                    using (SqlCommand cmd =
+                    new SqlCommand("UPDATE UserStatus SET Role=@Role, Status=@Status, " +
+                    "Blocked=@Blocked, Conned=@Conned, Saved=@Saved, Killed=@Killed, " +
+                    "Armed=@Armed, RoleActive=@RoleActive, VisitedBy=@VisitedBy" +
+                    " WHERE Id=@Id", connect))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", i);
+                        cmd.Parameters.AddWithValue("@Role", 0);
+                        cmd.Parameters.AddWithValue("@Status", 0);
+                        cmd.Parameters.AddWithValue("@Blocked", 0);
+                        cmd.Parameters.AddWithValue("@Conned", 0);
+                        cmd.Parameters.AddWithValue("@Saved", 0);
+                        cmd.Parameters.AddWithValue("@Killed", 0);
+                        cmd.Parameters.AddWithValue("@Armed", 0);
+                        cmd.Parameters.AddWithValue("@RoleActive", 0);
+                        cmd.Parameters.AddWithValue("@VisitedBy", "");
+
+                        int rows = cmd.ExecuteNonQuery();
+                    }
+                }
+                
+
                 connect.Close();
             }
         }

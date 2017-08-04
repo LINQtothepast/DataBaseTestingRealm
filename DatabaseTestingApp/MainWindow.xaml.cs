@@ -24,24 +24,71 @@ namespace DatabaseTestingApp
     {
         private List<User> UserList;
         private User sessionUser;
+        private User passedUser;
         private string enteredUsername;
-        private SqlConnection connect;
 
         public MainWindow()
         {
             enteredUsername = "a";
             InitializeComponent();
             UserCollection.fillListFromDB();
+            passedUser = UserCollection.returnAUser("b");
             sessionUser = UserCollection.returnAUser(enteredUsername);
+            passedUser.UserRole = 13;
 
             UserList = UserCollection.returnAList();
 
             PlayerListBox.ItemsSource = UserList;
-            UsernameLabel.Content = sessionUser.UserName;
         }
 
-        private void DatabaseButton_Click(object sender, RoutedEventArgs e)
+
+        private void ResetClick(object sender, RoutedEventArgs e)
         {
+            UserCollection.ResetStatusTable();
+        }
+
+
+        public void UserValuesClick(object sender, RoutedEventArgs e)
+        {
+            SqlConnection connect;
+            
+            string retRole = "n/a", retArmed = "n/a", retBlocked = "n/a", retVisitedBy = "n/a";
+            //connect to database
+            string connetionString = ("user id=Derek;" +
+                                "server=localhost;" +
+                                "Trusted_Connection=yes;" +
+                                "database=Test");
+
+            connect = new SqlConnection(connetionString);
+            connect.Open();
+
+            SqlCommand command = new SqlCommand("Select role, blocked, armed, visitedby FROM [UserStatus] WHERE ID=@ID", connect);
+            command.Parameters.AddWithValue("@ID", passedUser.UserID);
+            // int result = command.ExecuteNonQuery();
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    retRole = reader["Role"].ToString();
+                    retBlocked = reader["Blocked"].ToString();
+                    retArmed = reader["Armed"].ToString();
+                    retVisitedBy = reader["VisitedBy"].ToString();
+                }
+            }
+            connect.Close();
+
+
+            Username.Content = passedUser.UserName;
+            Role.Content = retRole;
+            Armed.Content = retArmed;
+            Blocked.Content = retBlocked;
+            VisitedBy.Content = retVisitedBy;
+        }
+
+
+        private void ArmedClick(object sender, RoutedEventArgs e)
+        {
+            SqlConnection connect;
             string connetionString = null;
             connetionString = ("user id=Derek;" +
                                 "server=localhost;" +
@@ -51,15 +98,86 @@ namespace DatabaseTestingApp
             using (connect = new SqlConnection(connetionString))
             {
                 connect.Open();
-                string command = "INSERT INTO UserTable"
-                + " (Email, Name, ID) " +
-                 "VALUES (@Email, @Name, @ID)";
-                SqlCommand insertCommand = new SqlCommand(command, connect);
-                insertCommand.Parameters.AddWithValue("@Email", "h");
-                insertCommand.Parameters.AddWithValue("@Name", "h");
-                insertCommand.Parameters.AddWithValue("@ID", 1);
-                //go to m for 15
-                insertCommand.ExecuteNonQuery();
+                passedUser.UserArmed = true;
+                using (SqlCommand cmd =
+                new SqlCommand("UPDATE UserStatus SET Armed=@Armed" +
+                " WHERE Id=@Id", connect))
+                {
+                    cmd.Parameters.AddWithValue("@Id", passedUser.UserID);
+                    cmd.Parameters.AddWithValue("@Armed", 1);
+
+                    int rows = cmd.ExecuteNonQuery();
+                    connect.Close();
+                }
+            }
+        }
+
+
+        private void BardClick(object sender, RoutedEventArgs e)
+        {
+            SqlConnection connect;
+            string connetionString = null;
+            connetionString = ("user id=Derek;" +
+                                "server=localhost;" +
+                                "Trusted_Connection=yes;" +
+                                "database=Test");
+
+            using (connect = new SqlConnection(connetionString))
+            {
+                connect.Open();
+                string retVisitedBy = "";
+
+                if (passedUser.UserRole == 13)
+                {
+                    passedUser.UserArmed = false;
+                    using (SqlCommand cmd =
+                    new SqlCommand("UPDATE UserStatus SET Armed=@Armed" +
+                    " WHERE Id=@Id", connect))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", passedUser.UserID);
+                        cmd.Parameters.AddWithValue("@Armed", 0);
+
+                        int rows = cmd.ExecuteNonQuery();
+                    }
+                }
+
+
+                SqlCommand command = new SqlCommand("Select visitedby FROM [UserStatus] WHERE ID=@ID", connect);
+                command.Parameters.AddWithValue("@ID", passedUser.UserID);
+                // int result = command.ExecuteNonQuery();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        retVisitedBy = reader["VisitedBy"].ToString();
+                    }
+                }
+
+                retVisitedBy += (" " + sessionUser.UserName);
+
+                passedUser.UserBlocked = true;
+                passedUser.UserVisitedBy += sessionUser.UserName + " ";
+
+                using (SqlCommand cmd =
+                new SqlCommand("UPDATE UserStatus SET VisitedBy=@VisitedBy" +
+                " WHERE Id=@Id", connect))
+                {
+                    cmd.Parameters.AddWithValue("@Id", passedUser.UserID);
+                    cmd.Parameters.AddWithValue("@VisitedBy", retVisitedBy);
+
+                    int rows = cmd.ExecuteNonQuery();
+                }
+
+                using (SqlCommand cmd =
+                new SqlCommand("UPDATE UserStatus SET Blocked=@Blocked" +
+                " WHERE Id=@Id", connect))
+                {
+                    cmd.Parameters.AddWithValue("@Id", passedUser.UserID);
+                    cmd.Parameters.AddWithValue("@Blocked", 1);
+
+                    int rows = cmd.ExecuteNonQuery();
+                }
+
                 connect.Close();
             }
         }

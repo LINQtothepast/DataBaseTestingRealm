@@ -12,13 +12,21 @@ namespace DatabaseTestingApp
         private string userEmail;
         private string userName;
         private int userID;
+        private bool userBlocked;
+        private bool userArmed;
+        private int userRole;
+        private string userVisitedBy;
 
         //constructor
-        public User(string email, string name, int id)
+        public User(string email, string name, int id, int role, bool armed, bool blocked, string visitedBy)
         {
             UserEmail = email;
             UserName = name;
             UserID = id;
+            UserArmed = armed;
+            UserBlocked = blocked;
+            UserRole = role;
+            UserVisitedBy = visitedBy;
         }
 
         //properties
@@ -36,6 +44,26 @@ namespace DatabaseTestingApp
         {
             get { return userID; }
             set { userID = value; }
+        }
+        public bool UserBlocked
+        {
+            get { return userBlocked; }
+            set { userBlocked = value; }
+        }
+        public bool UserArmed
+        {
+            get { return userArmed; }
+            set { userArmed = value; }
+        }
+        public int UserRole
+        {
+            get { return userRole; }
+            set { userRole = value; }
+        }
+        public string UserVisitedBy
+        {
+            get { return userVisitedBy; }
+            set { userVisitedBy = value; }
         }
     }
 }
