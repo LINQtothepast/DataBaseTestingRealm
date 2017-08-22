@@ -77,13 +77,14 @@ namespace DatabaseTestingApp
                 for(int i = 1; i < 16; i++)
                 {
                     using (SqlCommand cmd =
-                    new SqlCommand("UPDATE UserStatus SET Role=@Role, Status=@Status, " +
+                    new SqlCommand("UPDATE UserStatus SET Role=@Role, Status=@Status, RoleName=@RoleName, " +
                     "Blocked=@Blocked, Conned=@Conned, Saved=@Saved, Killed=@Killed, " +
                     "Armed=@Armed, RoleActive=@RoleActive, VisitedBy=@VisitedBy" +
                     " WHERE Id=@Id", connect))
                     {
                         cmd.Parameters.AddWithValue("@Id", i);
                         cmd.Parameters.AddWithValue("@Role", 0);
+                        cmd.Parameters.AddWithValue("@RoleName", "");
                         cmd.Parameters.AddWithValue("@Status", 0);
                         cmd.Parameters.AddWithValue("@Blocked", 0);
                         cmd.Parameters.AddWithValue("@Conned", 0);
@@ -97,6 +98,37 @@ namespace DatabaseTestingApp
                     }
                 }
                 
+
+                connect.Close();
+            }
+        }
+
+        public static void ResetLynchVoteTable()
+        {
+            //connect to database
+            string connetionString = ("user id=Derek;" +
+                                "server=localhost;" +
+                                "Trusted_Connection=yes;" +
+                                "database=Test");
+
+            using (connect = new SqlConnection(connetionString))
+            {
+                connect.Open();
+
+                for (int i = 1; i < 16; i++)
+                {
+                    using (SqlCommand cmd =
+                    new SqlCommand("UPDATE LynchTable SET NominationVotes=@NominationVotes, LynchVotes=@LynchVotes" +
+                    " WHERE Id=@Id", connect))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", i);
+                        cmd.Parameters.AddWithValue("@NominationVotes", 0);
+                        cmd.Parameters.AddWithValue("@LynchVotes", 0);
+                        
+                        int rows = cmd.ExecuteNonQuery();
+                    }
+                }
+
 
                 connect.Close();
             }

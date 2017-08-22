@@ -42,9 +42,14 @@ namespace DatabaseTestingApp
         }
 
 
-        private void ResetClick(object sender, RoutedEventArgs e)
+        private void ResetStatusClick(object sender, RoutedEventArgs e)
         {
             UserCollection.ResetStatusTable();
+        }
+
+        private void ResetVotesClick(object sender, RoutedEventArgs e)
+        {
+            UserCollection.ResetLynchVoteTable();
         }
 
 
@@ -64,7 +69,6 @@ namespace DatabaseTestingApp
 
             SqlCommand command = new SqlCommand("Select role, blocked, armed, visitedby FROM [UserStatus] WHERE ID=@ID", connect);
             command.Parameters.AddWithValue("@ID", passedUser.UserID);
-            // int result = command.ExecuteNonQuery();
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 if (reader.Read())
@@ -144,7 +148,6 @@ namespace DatabaseTestingApp
 
                 SqlCommand command = new SqlCommand("Select visitedby FROM [UserStatus] WHERE ID=@ID", connect);
                 command.Parameters.AddWithValue("@ID", passedUser.UserID);
-                // int result = command.ExecuteNonQuery();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())

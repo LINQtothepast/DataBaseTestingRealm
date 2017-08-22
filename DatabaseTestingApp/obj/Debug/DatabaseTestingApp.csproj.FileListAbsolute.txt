@@ -1,7 +1,6 @@
 C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\bin\Debug\DatabaseTestingApp.exe.config
 C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\bin\Debug\DatabaseTestingApp.exe
 C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\bin\Debug\DatabaseTestingApp.pdb
-C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\obj\Debug\DatabaseTestingApp.csprojResolveAssemblyReference.cache
 C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\obj\Debug\MainWindow.g.cs
 C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\obj\Debug\App.g.cs
 C:\Users\Derek\Desktop\DatabaseTestingApp\DatabaseTestingApp\obj\Debug\DatabaseTestingApp_MarkupCompile.cache

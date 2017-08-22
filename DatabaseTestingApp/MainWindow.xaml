@@ -20,7 +20,8 @@
         <Label x:Name="Blocked" Content="N/A" HorizontalAlignment="Left" Margin="389,101,0,0" VerticalAlignment="Top" Width="83"/>
         <Label x:Name="VisitedByLabel" Content="Visited By:" HorizontalAlignment="Left" Margin="315,132,0,0" VerticalAlignment="Top"/>
         <Label x:Name="VisitedBy" Content="N/A" HorizontalAlignment="Left" Margin="389,132,0,0" VerticalAlignment="Top" Width="83"/>
-        <Button x:Name="ResetButton" Content="Reset Values" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Width="83" Click="ResetClick"/>
+        <Button x:Name="ResetStatusButton" Content="Reset Status Values" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Width="113" Click="ResetStatusClick"/>
         <Button x:Name="UserValues" Content="Passed User Values" HorizontalAlignment="Left" Margin="315,277,0,0" VerticalAlignment="Top" Width="157" Click="UserValuesClick"/>
+        <Button x:Name="ResetVotesValues" Content="Reset Vote Values" HorizontalAlignment="Left" Margin="173,294,0,0" VerticalAlignment="Top" Width="108" Click="ResetVotesClick"/>
     </Grid>
 </Window>
